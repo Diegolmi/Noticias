@@ -1,1 +1,16 @@
 business entertainment general health science sports technology
+
+<div className="listaNoticias">
+                    {
+                        this.state.listaNoticias.map(noticia => (
+                            <div className="noticia">
+                                <h2>{noticia.title}</h2>
+                                <h4>{noticia.descripcion}</h4>
+                                <img src={noticia.urlToImage} alt={noticia.title} />
+                        <div>{noticia.content}</div>
+                        <a href={noticia.url} target="_blank" rel="noopener noreferrer">Ver mas... </a>
+
+                            </div>
+                        ))
+                    }
+                </div>

@@ -10,7 +10,7 @@ function App() {
   return (
     
     <div>
-      <img src={logo} className="App-logo" alt="logo" />
+      <img src={logo} className="App-logo img-fluid" alt="logo" />
       <Noticias />
      
     </div>

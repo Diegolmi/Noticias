@@ -42,7 +42,7 @@ class Noticias extends Component {
                     <h2> Seccion de noticias</h2>
                 <form onSubmit={evt => evt.preventDefault()}>
                     <select name="categoria" onChange={this.seleccionarCategoria}>
-                        <option value="">Seccion</option>
+                        <option value=""></option>
                         {
 
                             categorias.map(option => (
@@ -70,7 +70,9 @@ class Noticias extends Component {
                                                 <div>{noticia.content}</div>
 
                                             </Card.Text>
-                                            <Button variant="primary"><a href={noticia.url} target="_blank" rel="noopener noreferrer">Ver mas... </a></Button>
+                                            <div className="vinculo">
+                                            <Button variant="danger"><a href={noticia.url} target="_blank" rel="noopener noreferrer"><p>Ver mas...</p> </a></Button>
+                                            </div>
                                         </Card.Body>
                                     </Card>
                                 
