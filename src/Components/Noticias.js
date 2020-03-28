@@ -37,45 +37,46 @@ class Noticias extends Component {
         return (
             <div >
                 <div className="titulo">
-                <h1><strong>Alertas Corona Virus</strong></h1></div>
+                    <h1><strong>Alertas Corona Virus</strong></h1></div>
                 <div className="input-sec">
                     <h2> Seccion de noticias</h2>
-                <form onSubmit={evt => evt.preventDefault()}>
-                    <select name="categoria" onChange={this.seleccionarCategoria}>
-                        <option value=""></option>
-                        {
+                    <form onSubmit={evt => evt.preventDefault()}>
+                        <select name="categoria" onChange={this.seleccionarCategoria}>
+                            <option value=""></option>
+                            {
 
-                            categorias.map(option => (
-                                <option value={option}>{option} </option>
+                                categorias.map(option => (
+                                    <option value={option}>{option} </option>
 
-                            ))
-                        }
-                    </select>
+                                ))
+                            }
+                        </select>
 
 
-                </form>
+                    </form>
                 </div>
+
+
                 <div className="listaNoticias">
                     {
-
                         this.state.listaNoticias.map(noticia => (
-                            
-                                    <Card clasName="card">
-                                        <Card.Img variant="top" src={noticia.urlToImage} alt={noticia.title} />
-                                        <Card.Body>
-                                            <Card.Title><h2>{noticia.title}</h2></Card.Title>
-                                            <Card.Text>
-                                                <h4>{noticia.descripcion}</h4>
 
-                                                <div>{noticia.content}</div>
+                            <Card clasName="card">
+                                <Card.Img variant="top" src={noticia.urlToImage} alt={noticia.title} />
+                                <Card.Body>
+                                    <Card.Title><h2>{noticia.title}</h2></Card.Title>
+                                    <Card.Text>
+                                        <h4>{noticia.descripcion}</h4>
 
-                                            </Card.Text>
-                                            <div className="vinculo">
-                                            <Button variant="danger"><a href={noticia.url} target="_blank" rel="noopener noreferrer"><p>Ver mas...</p> </a></Button>
-                                            </div>
-                                        </Card.Body>
-                                    </Card>
-                                
+                                        <div>{noticia.content}</div>
+
+                                    </Card.Text>
+                                    <div className="vinculo">
+                                        <Button variant="danger"><a href={noticia.url} target="_blank" rel="noopener noreferrer"><p>Ver mas...</p> </a></Button>
+                                    </div>
+                                </Card.Body>
+                            </Card>
+
                         ))
                     }
                 </div>
