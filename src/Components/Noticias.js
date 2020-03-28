@@ -37,7 +37,7 @@ class Noticias extends Component {
         return (
             <div >
                 <div className="titulo">
-                <h1><strong>Alertas Corona Virus</strong></h1></div>
+                <h1><strong>Corona Virus</strong></h1></div>
                 <div className="input-sec">
                     <h2> Seccion de noticias</h2>
                 <form onSubmit={evt => evt.preventDefault()}>
