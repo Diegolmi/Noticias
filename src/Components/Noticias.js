@@ -1,90 +1,104 @@
-import React, { Component } from 'react';
-import { categorias, getApiUrl } from './config';
-import Card from 'react-bootstrap/Card';
-import Button from 'react-bootstrap/Button';
+import React, { useState, useEffect } from 'react';
+import { categorias, getApiUrl, paises } from './config';
+import ListaNoticias from './ListaNoticias';
+
 
 import './style.css';
-class Noticias extends Component {
-    constructor() {
-        super();
-        this.state = {
-            categoria: '',
-            listaNoticias: []
-        }
+const alEspaniol = {
+    'business': 'Negocios',
+    'entertainment': 'Entretenimiento',
+    'general': 'General',
+    'health': 'Salud',
+    'science': 'Ciencia',
+    'sports': 'Deportes',
+    'technology': 'Tecno',
+}
+const paisesLarge = {
+    
+    'ar': 'Argentina',
+    'at': 'Austria',
+    'br': 'Brasil',
+    'ca': 'Canada',
+    'fr': 'Francia',
+    'gb': 'Inglaterra',
+    'it': 'Italia',
+    'jp': 'Japon',
+    'ru': 'Rusia',
+    'us': 'Estados Unidos',
+    've': 'Venezuela',
+    
 
-    }
 
-    componentDidMount() {
-        this.fetchNoticia();
-    }
+}
 
-    seleccionarCategoria = evt => {
-        this.setState({ categoria: evt.target.value }, this.fetchNoticia);
-    }
 
-    fetchNoticia = () => {
-        fetch(getApiUrl(this.state.categoria))
+const Noticias = () => {
+    const [categoria, setCategoria] = useState('general');
+    const [pais, setPais] = useState('ar');
+    const [listaNoticias, setListaNoticias] = useState([]);
+
+
+
+
+    useEffect(() => {
+        fetchNoticia();
+    }, [categoria])
+
+
+
+    const fetchNoticia = () => {
+        fetch(getApiUrl(categoria, pais))
             .then(response => {
                 return response.json();
             })
             .then(myJson => {
-                this.setState({ listaNoticias: myJson.articles })
-
+                setListaNoticias(myJson.articles);
             });
-    }
+    };
 
-    render() {
-        return (
-            <div >
-                <div className="titulo">
-                    <h1><strong>Alertas Corona Virus</strong></h1></div>
-                <div className="input-sec">
-                    <h2> Seccion de noticias</h2>
-                    <form onSubmit={evt => evt.preventDefault()}>
-                        <select name="categoria" onChange={this.seleccionarCategoria}>
-                            <option value=""></option>
-                            {
+    console.log(listaNoticias);
+    return (
+        <div >
+            <div className="titulo">
+                <h1><strong>Alertas Corona Virus</strong></h1>
+            </div>
+            <div className="input-sec">
+                <h2> Seccion de noticias</h2>
+                <form onSubmit={evt => evt.preventDefault()}>
+                    <label id="label">Seleccione el pais</label>
+                    <select name="pais" onChange={evt => setPais(evt.target.value)} custom>
+                        <option value=""></option>{
+                            paises.map(option => (
+                                <option value={option} selected={pais === option}>{paisesLarge[option]}</option>
+                            ))
+                        }
+                    </select>
+                    <label id="label">Seleccione la seccion</label>
 
-                                categorias.map(option => (
-                                    <option value={option}>{option} </option>
+                    <select name="categoria" onChange={evt => setCategoria(evt.target.value)} custom>
 
-                                ))
-                            }
-                        </select>
+                        {
 
+                            categorias.map(option => (
+                                <option value={option} selected={categoria === option}>{alEspaniol[option]} </option>
 
-                    </form>
-                </div>
-
-
-                <div className="listaNoticias">
-                    {
-                        this.state.listaNoticias.map(noticia => (
-
-                            <Card clasName="card">
-                                <Card.Img variant="top" src={noticia.urlToImage} alt={noticia.title} />
-                                <Card.Body>
-                                    <Card.Title><h2>{noticia.title}</h2></Card.Title>
-                                    <Card.Text>
-                                        <h4>{noticia.descripcion}</h4>
-
-                                        <div>{noticia.content}</div>
-
-                                    </Card.Text>
-                                    <div className="vinculo">
-                                        <Button variant="danger"><a href={noticia.url} target="_blank" rel="noopener noreferrer"><p>Ver mas...</p> </a></Button>
-                                    </div>
-                                </Card.Body>
-                            </Card>
-
-                        ))
-                    }
-                </div>
-            </div >
+                            ))
+                        }
+                    </select>
 
 
-        );
-    }
+                </form>
+            </div>
+
+            <ListaNoticias noticias={listaNoticias} />
+
+
+        </div >
+
+
+
+    );
+
 
 }
 
