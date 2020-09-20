@@ -16,7 +16,7 @@ const alEspaniol = {
 const paisesLarge = {
     
     'ar': 'Argentina',
-    'at': 'Austria',
+  
     'br': 'Brasil',
     'ca': 'Canada',
     'fr': 'Francia',
